@@ -1,0 +1,1 @@
+# namaz-kz-backend-api
