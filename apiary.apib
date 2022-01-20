@@ -1,0 +1,616 @@
+FORMAT: 1A
+HOST: https://api.wahd.app/
+
+# Jamagat
+
+Backend services for Jamagat mobile application.
+
+## User [/user]
+
+### Create new user [POST /user]
+ Creates a new user.
++ Request (application/json)
+    + Attributes
+        + uid: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+            ID of a user (received from Firebase)
+        + full_name: `Ahmad Ali` (string, required)
+            User's full name.
+        + email: `ahmad@email.com` (string, required)
+            User's email
+        + gender: `M` (string, required)
+            User's gender.
+    
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Get user info [GET /user?user_id={user_id}]
+ Gets the general info of a user.
+
++ Parameter
+    + user_id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+        ID of a user.
+
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+            
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (User Private Info, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+    
+### Retrieve Filter Preference [GET /user/filter]
+ Returns a user's filter preferences.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (Filter Preference, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Update Filter Preference [PATCH /user/filter]
+ Update a user's filter preferences.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
+    + Attributes
+        + selected_prayers: fajr, dhuhr, asr, maghrib, isha (array , required)
+            The prayers which the users only want to see.
+        + distance: 3 (number, required)
+            The maximum distance (in kilometers) between the user's location and the prayer's location.
+        + minimum_participants: 0 (number)
+            (Only for women, optional) The minimum amount of people participating the prayer. *This should only apply if the organizer is male*.
+        + same_gender: false (boolean)
+            (Only for women, optional) If true, only show prayers organized by women.
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Update user name [PATCH /user]
+ Update a user's full name
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
+    + Attributes
+        + full_name: `Ahmad Ali` (string , required)
+            New full name to be changed.
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Update user locale [PATCH /user/locale]
+ Update a user's locale preference
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
+    + Attributes
+        + locale: `zh_hant` (string , required)
+            Locale code.
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Set user location [POST /user/location]
+ Sets a user's location for receiving new prayer notifications
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
+    + Attributes
+        + lat: `34.345` (number , required)
+            Latitude of the location.
+        + lng: `34.345` (number, required)
+            Longitude of the location.add locat
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Delete user account [DELETE /user]
+ Deletes a user's account as well as its related documents
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+## Prayer [/prayer]
+
+### Query nearby prayers [GET /prayer/query?lat={lat}&lng={lng}&selected_prayer={selected_prayer}&timestamp={timestamp}&type={type}&sortBy={sortBy}]
+ Queries the nearby prayers according to factors such as user's geolocation, filter preferences and gender. Requires pagination feature.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    
++ Parameter
+    + lat: `34.345` (number, required)
+        User's current location's latitude.
+    + lng: `123.345` (number, required)
+        User's current location's longitude.
+    + selected_prayer: fajr, dhuhr, asr (array, required)
+        The prayer to be performed.
+    + timestamp: `2020-04-30T22:35:00+08:00` (string, required)
+        Current timestamp of the user.
+    + type: `feed OR map` (string, required)
+        Type of the query request.
+    + sortBy: `distance OR new` (string, required)
+        Sort method. Default is by distance.
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (array, required)
+            + (Prayer object)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Get Single Prayer [GET /prayer?id={id}]
+ Retrieves a single prayer via prayer id.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    
++ Parameter
+    + id: `123e4567-e89b-12d3-a456-426655440000` (number, required)
+        The ID of the prayer to be retrieved.
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (Prayer object, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+
+### Create new prayer [POST /prayer]
+ Creates a new prayer invitation.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    
+    + Attributes
+        + lat: `40.23` (number, required)
+            Prayer's latitude.
+        + lng: `120.23` (number, required)
+            Prayer's longitude.
+        + selected_prayer: `fajr` (string, required)
+            The selected prayer of the invitation.
+        + schedule_time: `2020-04-30T22:35:00+08:00` (string, required)
+            Scheduled time of the invitation.
+        + description: `Please come join us` (string, required)
+            Description of the invitation.
+        + guests: (object, required)
+            + male: 3 (number, required)
+            + female: 0 (number, required)
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (Prayer object, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Retrieve user's past invitations amount [GET /prayer/invitations/amount?user_id={user_id}]
+ Retrieves the total number of times a user invited in the past.
++ Parameter
+    + user_id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+        ID of a user.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (object, required)
+            + amount: 10 (number, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Retrieve user's past invitations [GET /prayer/invitations?user_id={user_id}]
+ Retrieves a list of user's past invitations. Requires pagination feature.
++ Parameter
+    + user_id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+        ID of a user.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (array, required)
+            + (Prayer object)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Retrieve user's participated history amount [GET /prayer/participated/amount?user_id={user_id}]
+ Retrieves the total number of times a user participated in the past.
++ Parameter
+    + user_id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+        ID of a user.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (object, required)
+            + amount: 10 (number, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Retrieve user's participated history [GET /prayer/participated?user_id={user_id}]
+ Retrieves a list of prayers a user has participated. Requires pagination feature.
++ Parameter
+    + user_id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+        ID of a user.
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (array, required)
+            + (Prayer object)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Join prayer [GET /prayer/join?id={id}]
+ Toggler for joining or leaving a prayer. Sends a push notification to the organizer.
++ Parameter
+    + id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+        ID of the prayer.
+        
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Delete prayer [DELETE /prayer?id={id}]
+ Deletes a prayer.
++ Parameter
+    + id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+        ID of the prayer.
+
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Translate prayer description [GET /prayer/translate?text={text}&src={src}&dest={dest}]
+ Translates a given string to the specified locale.
++ Parameter
+    + text: `Let's prayer together` (string, required)
+        Prayer description text.
+    + dest: `zh_hant` (Locales, required)
+        The locale of the text to be translated to.
+        
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+        
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+        + data (object, required)
+            + text: `來一起禮拜吧` (string, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+
+## Notification [/device-token]
+
+### Register device token [POST /device-token]
+ Registers a user's push notification token.
+ 
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    + Attributes
+        + token: `123e4567e89b12d3a456426655440000` (string, required)
+            User's device token.
+    
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+### Delete device token [DELETE /device-token]
+ Deletes a user's push notification token. Should be called when user logs off from the app.
+ 
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+## Report [/report]
+
+### Report prayer [POST /report/prayer]
+ Reports about a prayer. Also sends a report to the #report slack channel.
+ 
++ Request (application/json)
+    + Header
+        Authorization: Token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    + Attributes
+        + category (Prayer Report Category, required)
+            Category of the report.
+        + description (string)
+            Additional description about the report.
+        + prayer_id (string, required)
+            The ID of the prayer which the user is reporting.
+    
++ Response 200 (application/json)
+    + Attributes
+        + status (Response Status, required)
+
++ Response 400 (application/json)
+    + Attributes (Failure Response)
++ Response 401 (application/json)
+    + Attributes (Failure Response)
++ Response 404 (application/json)
+    + Attributes (Failure Response)
++ Response 500 (application/json)
+    + Attributes (Failure Response)
+
+# Data Structures
+
+## Prayer Report Category (enum[number])
++ 0 - `Spam`
++ 1 - `Fake`
++ 2 - `Threat`
++ 3 - `Others`
+
+## Locales (enum[string])
++ ar - `Arabic`
++ en - `English`
++ fr - `French`
++ id - `Indonesian`
++ ru - `Russian`
++ tr - `Turkish`
++ zh_hant - `Traditional Chinese`
++ zh_hans - `Simplified Chinese`
+
+## Prayer types (enum[string])
++ fajr - `Fajr`
++ dhuhr - `Dhuhr`
++ asr - `Asr`
++ maghrib - `Maghrib`
++ isha - `Isha`
++ jumuah - `Jumuah`
++ janazah - `Janazah`
+
+## User Public Info (object)
++ id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
++ full_name: `Ahmad Ali` (string, required)
++ email: `ahmad@email.com` (string, required)
++ gender: `M` (string, required)
+
+## User Private Info (object)
++ id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
++ full_name: `Ahmad Ali` (string, required)
++ email: `ahmad@email.com` (string, required)
++ gender: `M` (string, required)
++ location: (object, required)
+    + lat: `40.23` (number, required)
+    + lng: `123.45` (number, required)
++ locale: `zh_hant` (string, required)
++ device_token: `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9` (string)
+
+## Filter Preference (object)
++ selected_prayers: fajr, dhuhr, asr, maghrib, isha (array , required)
+    The prayers which the users only want to see.
++ minimum_participants: 0 (number)
+    (Only for women, optional) The minimum amount of people participating the prayer. *This should only apply if the organizer is male*.
++ same_gender: false (boolean)
+    (Only for women, optional) If true, only show prayers organized by women.
+
+## Prayer object (object)
++ id: `123e4567-e89b-12d3-a456-426655440000` (string, required)
+    ID string of the prayer.
++ prayer: `fajr` (string, required)
+    The prayer to be performed.
++ location: (object, required)
+    + lat: `40.23` (number, required)
+        Latitude of the prayer location.
+    + lng: `123.45` (number, required)
+        Longitude of the prayer location.
++ inviter: (User Public Info, required)
+    The inviter of the prayer
++ participants: 123e4567, 223e4567 (array, required)
+    ID of the participants of the prayer.
+    + (string)
++ guests_female: `1` (number, required)
+    # of female guests.
++ guests_male: `2` (number, required)
+    # of male guests.
+
+## Response Status (enum[string])
++ success
++ failure
+
+## Failure Response (object)
++ status (Response Status, required)
++ error: Error message (string, required)
